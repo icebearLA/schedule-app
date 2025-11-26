@@ -31,11 +31,12 @@ jobs:
       - name: Install Flet
         run: pip install flet
 
-      - name: Flet Build APK
-        # 如果你有图标，确保文件名是 icon.png，否则去掉 --icon 参数
+     - name: Flet Build APK
         run: |
-          flet build apk --project "排班助手" --org "com.example.schedule" 
-
+          # --project: 内部项目名，必须是英文小写+下划线
+          # --product: 手机桌面上显示的APP名字，可以是中文
+          flet build apk --project "schedule_helper" --product "排班助手" --org "com.example.schedule"
+          
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
