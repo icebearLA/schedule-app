@@ -1,0 +1,43 @@
+name: Build Android APK
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0'
+
+      - name: Install Flet
+        run: pip install flet
+
+      - name: Flet Build APK
+        # 如果你有图标，确保文件名是 icon.png，否则去掉 --icon 参数
+        run: |
+          flet build apk --project "排班助手" --org "com.example.schedule" --icon icon.png
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: schedule-app-release
+          path: build/apk/app-release.apk
