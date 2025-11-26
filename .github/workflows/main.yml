@@ -34,7 +34,7 @@ jobs:
       - name: Flet Build APK
         # 如果你有图标，确保文件名是 icon.png，否则去掉 --icon 参数
         run: |
-          flet build apk --project "排班助手" --org "com.example.schedule" --icon icon.png
+          flet build apk --project "排班助手" --org "com.example.schedule" 
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
